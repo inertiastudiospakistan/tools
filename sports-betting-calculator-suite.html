@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Sports Betting Calculator Suite</title>
+<style>
+  :root{
+    --bg:#f4f6f4; --surface:#ffffff; --surface-2:#eef2ee; --ink:#16211b; --ink-2:#4a5a50;
+    --line:#d8e0d9; --accent:#0e7a57; --accent-ink:#ffffff; --accent-soft:#e2f2ea;
+    --good:#0e7a57; --good-bg:#e2f2ea; --bad:#b3362b; --bad-bg:#fbeae8;
+    --warn-bg:#fdf3dd; --warn-ink:#6b5410; --warn-line:#e8d48a;
+    --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    --radius:10px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e1310; --surface:#171e1a; --surface-2:#1e2822; --ink:#e8efe9; --ink-2:#a7b8ab;
+      --line:#2c3a31; --accent:#35c48d; --accent-ink:#06231a; --accent-soft:#173528;
+      --good:#4fd6a2; --good-bg:#173528; --bad:#ff9a8f; --bad-bg:#3a201d;
+      --warn-bg:#332b12; --warn-ink:#f0d48a; --warn-line:#6b5c22;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:20px 16px 56px}
+  h1{font-size:clamp(24px,4.5vw,34px);line-height:1.15;margin:6px 0 8px;letter-spacing:-.01em}
+  h2{font-size:21px;line-height:1.25;margin:0}
+  h3{font-size:15px;margin:0 0 6px}
+  p{margin:0 0 10px}
+  .lede{color:var(--ink-2);max-width:68ch;font-size:16.5px}
+  .num{font-variant-numeric:tabular-nums}
+  /* Honesty banner */
+  .truth{border:1.5px solid var(--warn-line);background:var(--warn-bg);color:var(--warn-ink);border-radius:var(--radius);padding:14px 16px;margin:18px 0 6px}
+  .truth strong{color:inherit}
+  .truth p{margin:0}
+  .truth p + p{margin-top:6px}
+  /* Nav */
+  .toolnav{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 0 8px;display:flex;gap:8px;flex-wrap:wrap}
+  .toolnav a{display:inline-flex;align-items:center;min-height:40px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);text-decoration:none;font-size:14px;font-weight:600}
+  .toolnav a:hover,.toolnav a:focus-visible{border-color:var(--accent);color:var(--accent)}
+  section.calc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin:18px 0;scroll-margin-top:76px}
+  .calc-head{display:flex;gap:12px;align-items:flex-start;margin-bottom:4px}
+  .calc-no{flex:0 0 auto;width:34px;height:34px;border-radius:9px;background:var(--accent);color:var(--accent-ink);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .calc-head p{color:var(--ink-2);margin:2px 0 0;font-size:15px}
+  .grid{display:grid;grid-template-columns:360px 1fr;gap:22px;margin-top:14px}
+  @media (max-width:840px){ .grid{grid-template-columns:1fr} }
+  label{display:block;font-size:13.5px;font-weight:650;margin:14px 0 5px}
+  label:first-child{margin-top:0}
+  .hint{font-weight:400;color:var(--ink-2);font-size:12.5px}
+  input[type="text"],input[type="number"],select{width:100%;min-height:46px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:16px;font-family:inherit}
+  input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  input[type="range"]{width:100%;min-height:36px;accent-color:var(--accent)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .err{color:var(--bad);font-size:13.5px;min-height:20px;margin-top:6px;font-weight:600}
+  /* Result panel */
+  .result{background:var(--surface-2);border-radius:var(--radius);padding:16px}
+  .result .big{font-size:30px;font-weight:800;line-height:1.15;letter-spacing:-.01em}
+  .result .big small{font-size:15px;font-weight:600;color:var(--ink-2)}
+  .kv{display:grid;grid-template-columns:1fr auto;gap:4px 14px;margin-top:12px;font-size:15px}
+  .kv dt{color:var(--ink-2)} .kv dd{margin:0;font-weight:650;text-align:right;font-variant-numeric:tabular-nums}
+  .pill{display:inline-block;padding:3px 11px;border-radius:999px;font-size:13px;font-weight:700;margin-top:10px}
+  .pill.good{background:var(--good-bg);color:var(--good)}
+  .pill.bad{background:var(--bad-bg);color:var(--bad)}
+  .working{margin-top:16px;border-top:1px dashed var(--line);padding-top:12px}
+  .working h3{font-size:13px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-2)}
+  .working ol{margin:0;padding-left:20px;font-size:14.5px}
+  .working li{margin:3px 0;font-variant-numeric:tabular-nums}
+  .working code{font-family:var(--mono);font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:0 4px}
+  .plain{margin-top:14px;font-size:14.5px;color:var(--ink-2)}
+  .plain strong{color:var(--ink)}
+  button.act{min-height:46px;padding:9px 18px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+  button.ghost{background:var(--surface);color:var(--ink);border-color:var(--line)}
+  button.ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .legrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:end;margin-bottom:10px}
+  .legrow .rm{min-height:46px;width:46px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--bad);font-size:18px;cursor:pointer}
+  .legrow label{margin:0 0 5px}
+  table.ref{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+  table.ref th,table.ref td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  table.ref th{font-size:13px;color:var(--ink-2)}
+  table.ref td:first-child{font-weight:650;white-space:nowrap}
+  .foot{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:18px}
+  .foot h2{font-size:18px;margin-bottom:8px}
+  .rg{border-left:4px solid var(--bad);padding:2px 0 2px 14px;margin-top:16px}
+  .small{font-size:13.5px;color:var(--ink-2)}
+  @media (max-width:520px){ .result .big{font-size:25px} section.calc{padding:16px} }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <h1>Sports Betting Calculator Suite</h1>
+  <p class="lede">Six working calculators for the maths behind a bet: converting odds, reading what odds imply, checking expected value, sizing stakes with the Kelly criterion, splitting a two-way arbitrage, and pricing a parlay. Every result shows its working, step by step.</p>
+
+  <div class="truth" role="note">
+    <p><strong>Read this first: no tool on this page predicts winners — and neither does any “AI predictor.”</strong> There is no model here and no tip hidden in the numbers. The odds a bookmaker posts <em>are</em> the market’s own estimate of how likely each outcome is, with the bookmaker’s margin built in.</p>
+    <p>What these calculators actually do is narrower and more honest: they convert odds between formats, show you the probability the odds imply, test whether <em>your own</em> estimate beats the price on offer, and size stakes sensibly. Where a calculator asks for a win probability, that number must come from you — the page never supplies one.</p>
+  </div>
+
+  <nav class="toolnav" aria-label="Calculators">
+    <a href="#converter">1 · Odds converter</a>
+    <a href="#implied">2 · Implied probability</a>
+    <a href="#ev">3 · Expected value</a>
+    <a href="#kelly">4 · Kelly stake</a>
+    <a href="#arb">5 · Arbitrage</a>
+    <a href="#parlay">6 · Parlay</a>
+  </nav>
+
+  <!-- ============ 1. ODDS CONVERTER ============ -->
+  <section class="calc" id="converter">
+    <div class="calc-head">
+      <div class="calc-no">1</div>
+      <div>
+        <h2>Odds converter</h2>
+        <p>Enter odds in any one format and see the same price in all three — plus the probability it implies.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <label for="cv-format">Format of the odds you have</label>
+        <select id="cv-format">
+          <option value="decimal" selected>Decimal (e.g. 2.50)</option>
+          <option value="american">American (e.g. +150 or −200)</option>
+          <option value="fractional">Fractional (e.g. 3/2)</option>
+        </select>
+        <label for="cv-value">Odds <span class="hint" id="cv-hint">— decimal, must be above 1.00</span></label>
+        <input type="text" id="cv-value" value="2.50" inputmode="decimal" autocomplete="off" />
+        <div class="err" id="cv-err" aria-live="polite"></div>
+      </div>
+      <div class="result" aria-live="polite">
+        <div class="big num" id="cv-big">2.50 <small>decimal</small></div>
+        <dl class="kv">
+          <dt>Decimal</dt><dd id="cv-dec">2.50</dd>
+          <dt>American</dt><dd id="cv-am">+150</dd>
+          <dt>Fractional</dt><dd id="cv-fr">3/2</dd>
+          <dt>Implied probability</dt><dd id="cv-ip">40.0%</dd>
+          <dt>Profit on a $100 stake</dt><dd id="cv-profit">$150.00</dd>
+          <dt>Total returned if it wins</dt><dd id="cv-return">$250.00</dd>
+        </dl>
+        <div class="working">
+          <h3>Working</h3>
+          <ol id="cv-steps"></ol>
+        </div>
+        <p class="plain"><strong>In plain words:</strong> the three formats are three ways of writing the same price. Decimal odds tell you the total returned per $1 staked (stake included). American odds show profit on a $100 stake (positive) or the stake needed to win $100 (negative). Fractional odds show profit relative to stake — 3/2 means $3 profit for every $2 staked.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. IMPLIED PROBABILITY ============ -->
+  <section class="calc" id="implied">
+    <div class="calc-head">
+      <div class="calc-no">2</div>
+      <div>
+        <h2>Implied probability &amp; the bookmaker’s margin</h2>
+        <p>Odds are a probability in disguise. Enter both sides of a two-way market to see each implied chance, the margin (overround) baked into the prices, and the fair, no-margin probabilities.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <label for="ip-format">Odds format</label>
+        <select id="ip-format">
+          <option value="decimal" selected>Decimal</option>
+          <option value="american">American</option>
+          <option value="fractional">Fractional</option>
+        </select>
+        <div class="row2">
+          <div>
+            <label for="ip-a">Side A odds</label>
+            <input type="text" id="ip-a" value="1.91" inputmode="decimal" autocomplete="off" />
+          </div>
+          <div>
+            <label for="ip-b">Side B odds</label>
+            <input type="text" id="ip-b" value="1.91" inputmode="decimal" autocomplete="off" />
+          </div>
+        </div>
+        <label for="ip-stake">Stake for payout figures <span class="hint">($)</span></label>
+        <input type="number" id="ip-stake" value="100" min="0" step="any" inputmode="decimal" />
+        <div class="err" id="ip-err" aria-live="polite"></div>
+      </div>
+      <div class="result" aria-live="polite">
+        <div class="big num" id="ip-big">104.7% <small>total implied — margin 4.7%</small></div>
+        <dl class="kv">
+          <dt>Side A implied probability</dt><dd id="ip-pa">52.4%</dd>
+          <dt>Side B implied probability</dt><dd id="ip-pb">52.4%</dd>
+          <dt>Side A fair probability (margin removed)</dt><dd id="ip-fa">50.0%</dd>
+          <dt>Side B fair probability (margin removed)</dt><dd id="ip-fb">50.0%</dd>
+          <dt>Side A: profit / total back on $ stake</dt><dd id="ip-paya">—</dd>
+          <dt>Side B: profit / total back on $ stake</dt><dd id="ip-payb">—</dd>
+        </dl>
+        <div class="working">
+          <h3>Working</h3>
+          <ol id="ip-steps"></ol>
+        </div>
+        <p class="plain"><strong>In plain words:</strong> real chances in a two-way market must add up to 100%. Bookmaker prices add up to more — the excess is the overround, the margin that makes the book profitable over time. The “fair” figures strip that margin out proportionally, giving the market’s own best guess at each side’s true chance. That guess comes from the odds — it is not a prediction made by this page.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. EXPECTED VALUE ============ -->
+  <section class="calc" id="ev">
+    <div class="calc-head">
+      <div class="calc-no">3</div>
+      <div>
+        <h2>Expected value (EV) calculator</h2>
+        <p>Tests a price against <em>your own</em> probability estimate. Positive EV means that if your estimate is right and you could repeat the bet many times, you would profit on average. It says nothing about any single bet.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <label for="ev-prob">Your estimated win probability <span class="hint">(%) — supplied by you, not by this tool</span></label>
+        <input type="number" id="ev-prob" value="55" min="0" max="100" step="any" inputmode="decimal" />
+        <input type="range" id="ev-prob-r" value="55" min="1" max="99" step="0.5" aria-label="Your estimated win probability slider" />
+        <label for="ev-odds">Decimal odds on offer</label>
+        <input type="number" id="ev-odds" value="2.00" min="1.01" step="any" inputmode="decimal" />
+        <label for="ev-stake">Stake <span class="hint">($)</span></label>
+        <input type="number" id="ev-stake" value="100" min="0" step="any" inputmode="decimal" />
+        <div class="err" id="ev-err" aria-live="polite"></div>
+      </div>
+      <div class="result" aria-live="polite">
+        <div class="big num" id="ev-big">+$10.00 <small>expected value per bet</small></div>
+        <span class="pill good" id="ev-pill">Positive EV — on your estimate</span>
+        <dl class="kv">
+          <dt>Break-even probability at these odds</dt><dd id="ev-be">50.0%</dd>
+          <dt>Your edge (your estimate − break-even)</dt><dd id="ev-edge">+5.0 pts</dd>
+          <dt>EV as % of stake</dt><dd id="ev-pct">+10.0%</dd>
+          <dt>Profit if it wins</dt><dd id="ev-win">$100.00</dd>
+          <dt>Average result over 100 such bets</dt><dd id="ev-100">+$1,000.00</dd>
+        </dl>
+        <div class="working">
+          <h3>Working</h3>
+          <ol id="ev-steps"></ol>
+        </div>
+        <p class="plain"><strong>In plain words:</strong> EV weighs the two outcomes by how likely <em>you</em> think they are: (chance of winning × profit if you win) minus (chance of losing × stake). The catch is the input — if your probability estimate is wrong, the EV figure is wrong with it. Most bettors overestimate their edge; the odds’ break-even probability is the hurdle your honest estimate has to clear.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. KELLY ============ -->
+  <section class="calc" id="kelly">
+    <div class="calc-head">
+      <div class="calc-no">4</div>
+      <div>
+        <h2>Kelly criterion stake calculator</h2>
+        <p>Given a bankroll and your own probability estimate, Kelly sizes the stake that grows a bankroll fastest in theory. Full Kelly is aggressive and swings hard, so half- and quarter-Kelly stakes are shown alongside — most people who use Kelly at all use a fraction of it.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <label for="k-bank">Bankroll <span class="hint">($) — money set aside for betting only</span></label>
+        <input type="number" id="k-bank" value="1000" min="0" step="any" inputmode="decimal" />
+        <label for="k-prob">Your estimated win probability <span class="hint">(%) — supplied by you, not by this tool</span></label>
+        <input type="number" id="k-prob" value="55" min="0" max="100" step="any" inputmode="decimal" />
+        <input type="range" id="k-prob-r" value="55" min="1" max="99" step="0.5" aria-label="Your estimated win probability slider" />
+        <label for="k-odds">Decimal odds on offer</label>
+        <input type="number" id="k-odds" value="2.00" min="1.01" step="any" inputmode="decimal" />
+        <div class="err" id="k-err" aria-live="polite"></div>
+      </div>
+      <div class="result" aria-live="polite">
+        <div class="big num" id="k-big">$100.00 <small>full Kelly stake (10.0% of bankroll)</small></div>
+        <dl class="kv">
+          <dt>Full Kelly stake</dt><dd id="k-full">$100.00 (10.0%)</dd>
+          <dt>Half Kelly stake (steadier)</dt><dd id="k-half">$50.00 (5.0%)</dd>
+          <dt>Quarter Kelly stake (cautious)</dt><dd id="k-quarter">$25.00 (2.5%)</dd>
+          <dt>Break-even probability at these odds</dt><dd id="k-be">50.0%</dd>
+        </dl>
+        <div class="working">
+          <h3>Working</h3>
+          <ol id="k-steps"></ol>
+        </div>
+        <p class="plain"><strong>In plain words:</strong> Kelly bets more when your edge is bigger and the odds are shorter, and nothing at all when your estimate is at or below break-even. Its weakness is the same as EV’s: it trusts your probability completely. Overstate your chance by a few points and Kelly will tell you to stake far too much — which is exactly why fractional Kelly exists.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. ARBITRAGE ============ -->
+  <section class="calc" id="arb">
+    <div class="calc-head">
+      <div class="calc-no">5</div>
+      <div>
+        <h2>Two-way arbitrage calculator</h2>
+        <p>If two bookmakers price the same two-outcome event differently enough, backing both sides in the right proportions returns the same amount whichever side wins. This finds the split — and tells you plainly when no arbitrage exists.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <label for="arb-a">Side A — best decimal odds (Bookmaker 1)</label>
+        <input type="number" id="arb-a" value="2.10" min="1.01" step="any" inputmode="decimal" />
+        <label for="arb-b">Side B — best decimal odds (Bookmaker 2)</label>
+        <input type="number" id="arb-b" value="2.10" min="1.01" step="any" inputmode="decimal" />
+        <label for="arb-total">Total amount to stake across both <span class="hint">($)</span></label>
+        <input type="number" id="arb-total" value="1000" min="0" step="any" inputmode="decimal" />
+        <div class="err" id="arb-err" aria-live="polite"></div>
+      </div>
+      <div class="result" aria-live="polite">
+        <div class="big num" id="arb-big">$50.00 <small>guaranteed profit</small></div>
+        <span class="pill good" id="arb-pill">Arbitrage exists — combined implied under 100%</span>
+        <dl class="kv">
+          <dt>Stake on Side A</dt><dd id="arb-sa">$500.00</dd>
+          <dt>Stake on Side B</dt><dd id="arb-sb">$500.00</dd>
+          <dt>Return whichever side wins</dt><dd id="arb-ret">$1,050.00</dd>
+          <dt>Combined implied probability</dt><dd id="arb-sum">95.2%</dd>
+          <dt>Profit margin on total staked</dt><dd id="arb-roi">5.0%</dd>
+        </dl>
+        <div class="working">
+          <h3>Working</h3>
+          <ol id="arb-steps"></ol>
+        </div>
+        <p class="plain"><strong>In plain words:</strong> each side’s stake is set in inverse proportion to its odds, so both outcomes pay the same total. The catch in real life: prices move in seconds, bookmakers can void bets or limit accounts, and one leg can fail to place — leaving you exposed on the other. The maths locks in a profit only if both bets are actually accepted at these prices.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. PARLAY ============ -->
+  <section class="calc" id="parlay">
+    <div class="calc-head">
+      <div class="calc-no">6</div>
+      <div>
+        <h2>Parlay (accumulator) calculator</h2>
+        <p>A parlay multiplies the odds of every leg together — and multiplies the chance of losing along with them, because every leg must win. Add your legs to see the combined price, payout, and the combined probability the odds imply.</p>
+      </div>
+    </div>
+    <div class="grid">
+      <div>
+        <div id="parlay-legs"></div>
+        <button type="button" class="act ghost" id="parlay-add">+ Add a leg</button>
+        <label for="parlay-stake" style="margin-top:16px">Stake <span class="hint">($)</span></label>
+        <input type="number" id="parlay-stake" value="50" min="0" step="any" inputmode="decimal" />
+        <div class="err" id="parlay-err" aria-live="polite"></div>
+      </div>
+      <div class="result" aria-live="polite">
+        <div class="big num" id="parlay-big">— <small>combined odds</small></div>
+        <dl class="kv">
+          <dt>Total payout if every leg wins</dt><dd id="parlay-pay">—</dd>
+          <dt>Profit if every leg wins</dt><dd id="parlay-profit">—</dd>
+          <dt>Combined implied probability</dt><dd id="parlay-ip">—</dd>
+          <dt>Combined odds in American format</dt><dd id="parlay-am">—</dd>
+        </dl>
+        <div class="working">
+          <h3>Working</h3>
+          <ol id="parlay-steps"></ol>
+        </div>
+        <p class="plain"><strong>In plain words:</strong> three even-money legs at 2.00 each don’t make a 6.00 shot that’s “a bit harder” — they make an 8.00 shot the odds themselves price at a 12.5% chance, and each leg carries the bookmaker’s margin, so the margins compound too. That is why parlays feel generous and pay out rarely.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REFERENCE + RESPONSIBLE GAMBLING ============ -->
+  <div class="foot">
+    <h2>Formula reference</h2>
+    <table class="ref">
+      <tr><th>Calculation</th><th>Formula</th></tr>
+      <tr><td>Implied probability</td><td>Decimal: 1 ÷ odds · American (−): |odds| ÷ (|odds| + 100) · American (+): 100 ÷ (odds + 100) · Fractional a/b: b ÷ (a + b)</td></tr>
+      <tr><td>Decimal → American</td><td>Odds ≥ 2.00: (odds − 1) × 100 · Odds &lt; 2.00: −100 ÷ (odds − 1)</td></tr>
+      <tr><td>Expected value</td><td>(win probability × profit if win) − (loss probability × stake)</td></tr>
+      <tr><td>Kelly fraction</td><td>((odds − 1) × win probability − loss probability) ÷ (odds − 1)</td></tr>
+      <tr><td>Arbitrage test</td><td>(1 ÷ odds A) + (1 ÷ odds B) &lt; 1 means an arbitrage exists; split stakes in proportion to each 1 ÷ odds</td></tr>
+      <tr><td>Parlay odds</td><td>odds of leg 1 × odds of leg 2 × … × odds of last leg</td></tr>
+    </table>
+
+    <div class="rg">
+      <h2>Bet responsibly</h2>
+      <p>These calculators do arithmetic, not miracles. The bookmaker’s margin means most bettors lose money over time, and no staking formula — Kelly included — turns a losing approach into a winning one. Only ever bet money you can afford to lose entirely, never chase losses, and never bet to solve a money problem.</p>
+      <p class="small">If betting stops being entertainment, help is free and confidential: <strong>BeGambleAware.org</strong> (UK), <strong>Gambling Help Online</strong> (Australia), the <strong>National Problem Gambling Helpline 1-800-522-4700</strong> (US), or search for your country’s gambling support service. You must be of legal gambling age in your jurisdiction to bet.</p>
+    </div>
+    <p class="small" style="margin-top:14px">All figures are calculated in your browser from the numbers you enter. Examples use $ as the currency; the maths is identical in any currency.</p>
+  </div>
+
+</main>
+
+<script>
+"use strict";
+function $(id){ return document.getElementById(id); }
+function num(id){ var v = parseFloat($(id).value); return isFinite(v) ? v : NaN; }
+function money(v){ var s = v < 0 ? "-$" : "$"; return s + Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+function moneySigned(v){ return (v > 0 ? "+" : "") + money(v).replace("$-","-$"); }
+function pct(v, d){ if(d===undefined) d=1; return (v*100).toFixed(d) + "%"; }
+function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ var t=b; b=a%b; a=t; } return a || 1; }
+
+/* Parse odds in a given format -> decimal. Returns NaN if invalid. */
+function parseOdds(raw, format){
+  if(raw === null || raw === undefined) return NaN;
+  var s = String(raw).trim();
+  if(s === "") return NaN;
+  if(format === "decimal"){
+    var d = parseFloat(s);
+    return (isFinite(d) && d > 1) ? d : NaN;
+  }
+  if(format === "american"){
+    var a = parseFloat(s);
+    if(!isFinite(a)) return NaN;
+    if(a >= 100) return 1 + a/100;
+    if(a <= -100) return 1 + 100/Math.abs(a);
+    return NaN;
+  }
+  /* fractional: "a/b" or a plain number meaning a/1 */
+  var m = s.match(/^(-?\d+(?:\.\d+)?)\s*\/\s*(-?\d+(?:\.\d+)?)$/);
+  if(m){
+    var n = parseFloat(m[1]), dn = parseFloat(m[2]);
+    if(dn <= 0 || n <= 0) return NaN;
+    return 1 + n/dn;
+  }
+  var f = parseFloat(s);
+  return (isFinite(f) && f > 0) ? 1 + f : NaN;
+}
+function decToAmerican(d){
+  if(d >= 2){ var v = Math.round((d-1)*100); return "+" + v; }
+  return String(-Math.round(100/(d-1)));
+}
+function decToFraction(d){
+  /* (d-1) as a reduced fraction, denominator capped at 1000 */
+  var x = d - 1, den = 1;
+  while(Math.abs(x - Math.round(x)) > 1e-9 && den < 1000){ x *= 10; den *= 10; }
+  var n = Math.round(x), g = gcd(n, den);
+  return (n/g) + "/" + (den/g);
+}
+function decToFracParts(d){
+  var x = d - 1, den = 1;
+  while(Math.abs(x - Math.round(x)) > 1e-9 && den < 1000){ x *= 10; den *= 10; }
+  var n = Math.round(x), g = gcd(n, den);
+  return [n/g, den/g];
+}
+function stepsHtml(el, arr){
+  el.innerHTML = arr.map(function(s){ return "<li>" + s + "</li>"; }).join("");
+}
+
+/* ---------- 1. Converter ---------- */
+var cvHints = {
+  decimal: "— decimal, must be above 1.00",
+  american: "— American: +100 or higher, or −100 or lower",
+  fractional: "— fractional, written as profit/stake, e.g. 3/2"
+};
+function calcConverter(){
+  var fmt = $("cv-format").value;
+  $("cv-hint").textContent = cvHints[fmt];
+  var d = parseOdds($("cv-value").value, fmt);
+  var err = $("cv-err");
+  if(isNaN(d)){
+    err.textContent = "That doesn’t parse as valid " + fmt + " odds — check the format and try again.";
+    return;
+  }
+  err.textContent = "";
+  var am = decToAmerican(d), fr = decToFraction(d), fp = decToFracParts(d);
+  var ip = 1/d, profit = 100*(d-1);
+  $("cv-big").innerHTML = d.toFixed(2) + " <small>decimal</small>";
+  $("cv-dec").textContent = d.toFixed(2);
+  $("cv-am").textContent = am;
+  $("cv-fr").textContent = fr;
+  $("cv-ip").textContent = pct(ip);
+  $("cv-profit").textContent = money(profit);
+  $("cv-return").textContent = money(100*d);
+  var steps = [];
+  if(fmt === "decimal"){
+    steps.push("Start with the decimal odds: <code>" + d.toFixed(2) + "</code>.");
+    if(d >= 2) steps.push("American: odds are 2.00 or more, so <code>(" + d.toFixed(2) + " − 1) × 100 = " + am + "</code>.");
+    else steps.push("American: odds are under 2.00, so <code>−100 ÷ (" + d.toFixed(2) + " − 1) = " + am + "</code>.");
+    steps.push("Fractional: profit per unit is <code>" + d.toFixed(2) + " − 1 = " + (d-1).toFixed(2) + "</code>, written as a fraction that is <code>" + fr + "</code>.");
+  } else if(fmt === "american"){
+    var a = parseFloat($("cv-value").value);
+    if(a > 0) steps.push("American <code>" + am + "</code> is positive: decimal = <code>1 + (" + a + " ÷ 100) = " + d.toFixed(2) + "</code>.");
+    else steps.push("American <code>" + am + "</code> is negative: decimal = <code>1 + (100 ÷ " + Math.abs(a) + ") = " + d.toFixed(2) + "</code>.");
+    steps.push("Fractional: profit per unit is <code>" + d.toFixed(2) + " − 1</code>, which reduces to <code>" + fr + "</code>.");
+  } else {
+    steps.push("Fractional <code>" + fr + "</code> means " + fp[0] + " profit per " + fp[1] + " staked: decimal = <code>1 + (" + fp[0] + " ÷ " + fp[1] + ") = " + d.toFixed(2) + "</code>.");
+    steps.push("American: from the decimal price that is <code>" + am + "</code>.");
+  }
+  steps.push("Implied probability: <code>1 ÷ " + d.toFixed(2) + " = " + pct(ip) + "</code> — the chance these odds are pricing in.");
+  steps.push("On $100: profit = <code>$100 × (" + d.toFixed(2) + " − 1) = " + money(profit) + "</code>; total back = <code>$100 × " + d.toFixed(2) + " = " + money(100*d) + "</code>.");
+  stepsHtml($("cv-steps"), steps);
+}
+["cv-format","cv-value"].forEach(function(id){ $(id).addEventListener("input", calcConverter); $(id).addEventListener("change", calcConverter); });
+
+/* ---------- 2. Implied probability ---------- */
+function calcImplied(){
+  var fmt = $("ip-format").value;
+  var dA = parseOdds($("ip-a").value, fmt), dB = parseOdds($("ip-b").value, fmt);
+  var stake = num("ip-stake");
+  var err = $("ip-err");
+  if(isNaN(dA) || isNaN(dB)){ err.textContent = "Enter valid " + fmt + " odds for both sides."; return; }
+  if(isNaN(stake) || stake < 0){ err.textContent = "Enter a stake of 0 or more."; return; }
+  err.textContent = "";
+  var pA = 1/dA, pB = 1/dB, total = pA + pB, margin = total - 1;
+  var fA = pA/total, fB = pB/total;
+  $("ip-big").innerHTML = pct(total) + " <small>total implied — margin " + pct(margin) + "</small>";
+  $("ip-pa").textContent = pct(pA);
+  $("ip-pb").textContent = pct(pB);
+  $("ip-fa").textContent = pct(fA);
+  $("ip-fb").textContent = pct(fB);
+  $("ip-paya").textContent = money(stake*(dA-1)) + " / " + money(stake*dA);
+  $("ip-payb").textContent = money(stake*(dB-1)) + " / " + money(stake*dB);
+  stepsHtml($("ip-steps"), [
+    "Side A: <code>1 ÷ " + dA.toFixed(2) + " = " + pct(pA) + "</code> implied.",
+    "Side B: <code>1 ÷ " + dB.toFixed(2) + " = " + pct(pB) + "</code> implied.",
+    "Add them: <code>" + pct(pA) + " + " + pct(pB) + " = " + pct(total) + "</code>. The <code>" + pct(margin) + "</code> above 100% is the overround — the bookmaker’s margin.",
+    "Fair probabilities (margin removed proportionally): Side A <code>" + pct(pA) + " ÷ " + pct(total) + " = " + pct(fA) + "</code>; Side B <code>" + pct(pB) + " ÷ " + pct(total) + " = " + pct(fB) + "</code>. These now add to exactly 100%."
+  ]);
+}
+["ip-format","ip-a","ip-b","ip-stake"].forEach(function(id){ $(id).addEventListener("input", calcImplied); $(id).addEventListener("change", calcImplied); });
+
+/* ---------- shared prob slider sync ---------- */
+function syncPair(numId, rangeId){
+  $(numId).addEventListener("input", function(){ var v = parseFloat($(numId).value); if(isFinite(v)) $(rangeId).value = v; });
+  $(rangeId).addEventListener("input", function(){ $(numId).value = $(rangeId).value; $(numId).dispatchEvent(new Event("input")); });
+}
+
+/* ---------- 3. Expected value ---------- */
+function calcEV(){
+  var p = num("ev-prob")/100, d = num("ev-odds"), stake = num("ev-stake");
+  var err = $("ev-err");
+  if(!(p >= 0 && p <= 1) || !(d > 1) || !(stake >= 0)){ err.textContent = "Check your inputs: probability 0–100%, odds above 1.00, stake 0 or more."; return; }
+  err.textContent = "";
+  var profit = stake*(d-1), ev = p*profit - (1-p)*stake, be = 1/d;
+  $("ev-big").innerHTML = moneySigned(ev) + " <small>expected value per bet</small>";
+  var pill = $("ev-pill");
+  if(ev > 0.004){ pill.className = "pill good"; pill.textContent = "Positive EV — on your estimate"; }
+  else if(ev < -0.004){ pill.className = "pill bad"; pill.textContent = "Negative EV — on your estimate"; }
+  else { pill.className = "pill good"; pill.textContent = "Break-even — on your estimate"; }
+  $("ev-be").textContent = pct(be);
+  var edgePts = (p - be)*100;
+  $("ev-edge").textContent = (edgePts >= 0 ? "+" : "") + edgePts.toFixed(1) + " pts";
+  $("ev-pct").textContent = stake > 0 ? ((ev/stake >= 0 ? "+" : "") + (ev/stake*100).toFixed(1) + "%") : "—";
+  $("ev-win").textContent = money(profit);
+  $("ev-100").textContent = moneySigned(ev*100);
+  stepsHtml($("ev-steps"), [
+    "Profit if the bet wins: <code>" + money(stake) + " × (" + d.toFixed(2) + " − 1) = " + money(profit) + "</code>.",
+    "Winning part: <code>" + pct(p,0) + " × " + money(profit) + " = " + money(p*profit) + "</code>.",
+    "Losing part: <code>" + pct(1-p,0) + " × " + money(stake) + " = " + money((1-p)*stake) + "</code> lost when it loses.",
+    "EV = <code>" + money(p*profit) + " − " + money((1-p)*stake) + " = " + moneySigned(ev) + "</code> per bet, on average, <em>if</em> your " + pct(p,0) + " estimate is accurate.",
+    "Break-even check: at odds of " + d.toFixed(2) + " you need to win <code>1 ÷ " + d.toFixed(2) + " = " + pct(be) + "</code> of the time just to break even."
+  ]);
+}
+["ev-prob","ev-odds","ev-stake"].forEach(function(id){ $(id).addEventListener("input", calcEV); });
+syncPair("ev-prob","ev-prob-r");
+
+/* ---------- 4. Kelly ---------- */
+function calcKelly(){
+  var bank = num("k-bank"), p = num("k-prob")/100, d = num("k-odds");
+  var err = $("k-err");
+  if(!(bank >= 0) || !(p >= 0 && p <= 1) || !(d > 1)){ err.textContent = "Check your inputs: bankroll 0 or more, probability 0–100%, odds above 1.00."; return; }
+  err.textContent = "";
+  var b = d - 1, q = 1 - p, f = (b*p - q)/b, be = 1/d;
+  var steps = [
+    "Net odds: <code>b = " + d.toFixed(2) + " − 1 = " + b.toFixed(2) + "</code>. Your win chance p = <code>" + pct(p,0) + "</code>, loss chance q = <code>" + pct(q,0) + "</code>.",
+    "Kelly fraction: <code>(b × p − q) ÷ b = (" + b.toFixed(2) + " × " + p.toFixed(2) + " − " + q.toFixed(2) + ") ÷ " + b.toFixed(2) + " = " + (f*100).toFixed(1) + "%</code> of bankroll."
+  ];
+  if(f <= 0){
+    $("k-big").innerHTML = "$0.00 <small>Kelly stake — no edge on your estimate</small>";
+    $("k-full").textContent = "$0.00 (0.0%)";
+    $("k-half").textContent = "$0.00 (0.0%)";
+    $("k-quarter").textContent = "$0.00 (0.0%)";
+    steps.push("The result is zero or negative: your estimate (" + pct(p,0) + ") is at or below the break-even " + pct(be) + " for these odds, so Kelly’s answer is <strong>don’t bet</strong>. Kelly never recommends a stake on a bet it judges to have no edge.");
+  } else {
+    $("k-big").innerHTML = money(bank*f) + " <small>full Kelly stake (" + (f*100).toFixed(1) + "% of bankroll)</small>";
+    $("k-full").textContent = money(bank*f) + " (" + (f*100).toFixed(1) + "%)";
+    $("k-half").textContent = money(bank*f/2) + " (" + (f*50).toFixed(1) + "%)";
+    $("k-quarter").textContent = money(bank*f/4) + " (" + (f*25).toFixed(1) + "%)";
+    steps.push("Full Kelly stake: <code>" + (f*100).toFixed(1) + "% × " + money(bank) + " = " + money(bank*f) + "</code>. Half Kelly stakes half that fraction (" + money(bank*f/2) + "); quarter Kelly a quarter (" + money(bank*f/4) + ") — each fraction gives up a little theoretical growth for much smaller swings.");
+  }
+  $("k-be").textContent = pct(be);
+  stepsHtml($("k-steps"), steps);
+}
+["k-bank","k-prob","k-odds"].forEach(function(id){ $(id).addEventListener("input", calcKelly); });
+syncPair("k-prob","k-prob-r");
+
+/* ---------- 5. Arbitrage ---------- */
+function calcArb(){
+  var dA = num("arb-a"), dB = num("arb-b"), total = num("arb-total");
+  var err = $("arb-err");
+  if(!(dA > 1) || !(dB > 1) || !(total >= 0)){ err.textContent = "Both odds must be above 1.00 and the total stake 0 or more."; return; }
+  err.textContent = "";
+  var iA = 1/dA, iB = 1/dB, S = iA + iB;
+  var ret = total / S, profit = ret - total;
+  var sA = total * iA / S, sB = total * iB / S;
+  var pill = $("arb-pill");
+  if(S < 1){
+    $("arb-big").innerHTML = money(profit) + " <small>guaranteed profit</small>";
+    pill.className = "pill good"; pill.textContent = "Arbitrage exists — combined implied under 100%";
+  } else {
+    $("arb-big").innerHTML = money(profit) + " <small>locked-in result — covering both sides loses money here</small>";
+    pill.className = "pill bad"; pill.textContent = "No arbitrage — combined implied is 100% or more";
+  }
+  $("arb-sa").textContent = money(sA);
+  $("arb-sb").textContent = money(sB);
+  $("arb-ret").textContent = money(ret);
+  $("arb-sum").textContent = pct(S);
+  $("arb-roi").textContent = total > 0 ? ((profit/total >= 0 ? "+" : "") + (profit/total*100).toFixed(1) + "%") : "—";
+  var steps = [
+    "Implied probabilities: Side A <code>1 ÷ " + dA.toFixed(2) + " = " + pct(iA) + "</code>; Side B <code>1 ÷ " + dB.toFixed(2) + " = " + pct(iB) + "</code>.",
+    "Combined: <code>" + pct(iA) + " + " + pct(iB) + " = " + pct(S) + "</code>. " + (S < 1 ? "Under 100% — the two prices disagree enough for an arbitrage." : "At or over 100% — the margin eats the difference, so no arbitrage exists at these prices."),
+    "Split the " + money(total) + " in proportion to those implied probabilities: Side A gets <code>" + money(total) + " × " + pct(iA) + " ÷ " + pct(S) + " = " + money(sA) + "</code>; Side B gets <code>" + money(sB) + "</code>.",
+    "Either way the return is the same: <code>" + money(sA) + " × " + dA.toFixed(2) + " = " + money(ret) + "</code>, and <code>" + money(sB) + " × " + dB.toFixed(2) + " = " + money(ret) + "</code>.",
+    (S < 1 ? "Profit: <code>" + money(ret) + " − " + money(total) + " = " + money(profit) + "</code>, whichever side wins." : "Result: <code>" + money(ret) + " − " + money(total) + " = " + moneySigned(profit) + "</code> — backing both sides at these prices guarantees a loss.")
+  ];
+  stepsHtml($("arb-steps"), steps);
+}
+["arb-a","arb-b","arb-total"].forEach(function(id){ $(id).addEventListener("input", calcArb); });
+
+/* ---------- 6. Parlay ---------- */
+var parlayCount = 0;
+function addLeg(value){
+  if(parlayCount >= 10) return;
+  parlayCount++;
+  var wrap = document.createElement("div");
+  wrap.className = "legrow";
+  var n = parlayCount;
+  wrap.innerHTML = '<div><label for="leg-' + n + '">Leg ' + n + '</label>' +
+    '<input type="number" id="leg-' + n + '" class="leg-input" value="' + (value || "2.00") + '" min="1.01" step="any" inputmode="decimal" aria-label="Leg ' + n + ' decimal odds" /></div>' +
+    '<div class="leg-info small num" id="leg-info-' + n + '"></div>' +
+    '<button type="button" class="rm" aria-label="Remove leg ' + n + '">&times;</button>';
+  wrap.querySelector(".rm").addEventListener("click", function(){
+    wrap.remove(); renumberLegs(); calcParlay();
+  });
+  wrap.querySelector(".leg-input").addEventListener("input", calcParlay);
+  $("parlay-legs").appendChild(wrap);
+  renumberLegs(); calcParlay();
+}
+function renumberLegs(){
+  var rows = $("parlay-legs").querySelectorAll(".legrow");
+  parlayCount = rows.length;
+  rows.forEach(function(row, i){
+    row.querySelector("label").textContent = "Leg " + (i+1);
+    row.querySelector(".leg-info").id = "leg-info-" + (i+1);
+  });
+  $("parlay-add").style.display = parlayCount >= 10 ? "none" : "";
+}
+function calcParlay(){
+  var inputs = $("parlay-legs").querySelectorAll(".leg-input");
+  var stake = num("parlay-stake");
+  var err = $("parlay-err");
+  var odds = [], valid = inputs.length >= 2;
+  inputs.forEach(function(inp){ var v = parseFloat(inp.value); if(!(v > 1)) valid = false; else odds.push(v); });
+  if(!valid){ err.textContent = inputs.length < 2 ? "A parlay needs at least two legs." : "Every leg’s odds must be above 1.00."; }
+  else if(!(stake >= 0)){ err.textContent = "Enter a stake of 0 or more."; }
+  else err.textContent = "";
+  inputs.forEach(function(inp, i){
+    var info = $("leg-info-" + (i+1));
+    var v = parseFloat(inp.value);
+    if(info) info.textContent = (v > 1) ? ("implies " + pct(1/v)) : "";
+  });
+  if(!valid || !(stake >= 0)){
+    $("parlay-big").innerHTML = "— <small>combined odds</small>";
+    $("parlay-pay").textContent = "—"; $("parlay-profit").textContent = "—";
+    $("parlay-ip").textContent = "—"; $("parlay-am").textContent = "—";
+    $("parlay-steps").innerHTML = "";
+    return;
+  }
+  var combined = odds.reduce(function(a,b){ return a*b; }, 1);
+  var payout = stake * combined, profit = payout - stake, ip = 1/combined;
+  $("parlay-big").innerHTML = combined.toFixed(2) + " <small>combined odds</small>";
+  $("parlay-pay").textContent = money(payout);
+  $("parlay-profit").textContent = money(profit);
+  $("parlay-ip").textContent = pct(ip);
+  $("parlay-am").textContent = decToAmerican(combined);
+  var chain = odds.map(function(o){ return o.toFixed(2); }).join(" × ");
+  var steps = [
+    "Multiply every leg together: <code>" + chain + " = " + combined.toFixed(2) + "</code> combined odds (" + decToAmerican(combined) + " in American format).",
+    "Payout: <code>" + money(stake) + " × " + combined.toFixed(2) + " = " + money(payout) + "</code> total back, of which <code>" + money(profit) + "</code> is profit — but only if <em>every</em> leg wins.",
+    "Combined implied probability: <code>1 ÷ " + combined.toFixed(2) + " = " + pct(ip) + "</code>. That is the chance the odds themselves assign to all " + odds.length + " legs landing together.",
+    "Each leg’s margin compounds: the true combined chance is lower than " + pct(ip) + " once every leg’s overround is accounted for — which is why the payout looks bigger than the real likelihood."
+  ];
+  stepsHtml($("parlay-steps"), steps);
+}
+$("parlay-add").addEventListener("click", function(){ addLeg("1.91"); });
+$("parlay-stake").addEventListener("input", calcParlay);
+addLeg("2.00"); addLeg("1.91"); addLeg("2.50");
+
+/* ---------- init ---------- */
+calcConverter(); calcImplied(); calcEV(); calcKelly(); calcArb();
+</script>
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>حاسبة مكافأة نهاية الخدمة | نظام العمل السعودي — المادتان 84 و85</title>
+<meta name="description" content="احسب مكافأة نهاية الخدمة وفق نظام العمل السعودي: أجر نصف شهر عن كل سنة من السنوات الخمس الأولى وأجر شهر عن كل سنة بعدها (المادة 84)، مع شرائح الاستقالة في المادة 85. أدخل أجرك ومدة خدمتك وسبب انتهاء العلاقة واحصل على التفصيل فوراً." />
+<meta name="keywords" content="حاسبة مكافأة نهاية الخدمة, مكافأة نهاية الخدمة السعودية, المادة 84, المادة 85, نظام العمل السعودي, حساب نهاية الخدمة, مستحقات نهاية الخدمة" />
+<meta property="og:title" content="حاسبة مكافأة نهاية الخدمة — نظام العمل السعودي" />
+<meta property="og:description" content="احسب مكافأتك المستحقة وفق المادتين 84 و85 من نظام العمل: أدخل الأجر ومدة الخدمة وسبب الانتهاء، واحصل على التفصيل كاملاً." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="ar_SA" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "حاسبة مكافأة نهاية الخدمة",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "inLanguage": "ar-SA",
+  "description": "حاسبة مكافأة نهاية الخدمة وفق المادتين 84 و85 من نظام العمل السعودي.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "SAR" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "كيف تُحسب مكافأة نهاية الخدمة في السعودية؟", "acceptedAnswer": { "@type": "Answer", "text": "وفق المادة 84 من نظام العمل: أجر نصف شهر عن كل سنة من السنوات الخمس الأولى، وأجر شهر كامل عن كل سنة مما زاد على ذلك، وتُحسب كسور السنة بنسبة ما قضي منها في الخدمة، وتُقدَّر المكافأة على أساس آخر أجر تقاضاه العامل." } },
+    { "@type": "Question", "name": "كم يستحق العامل إذا استقال؟", "acceptedAnswer": { "@type": "Answer", "text": "وفق المادة 85: لا يستحق شيئاً إذا قلّت خدمته عن سنتين، ويستحق ثلث المكافأة إذا بلغت خدمته سنتين وقلّت عن خمس، وثلثيها إذا بلغت خمس سنوات وقلّت عن عشر، وكامل المكافأة إذا بلغت خدمته عشر سنوات فأكثر." } },
+    { "@type": "Question", "name": "هل تُحسب المكافأة على الراتب الأساسي أم الإجمالي؟", "acceptedAnswer": { "@type": "Answer", "text": "تُقدَّر المكافأة على أساس آخر أجر تقاضاه العامل، والأجر في نظام العمل يشمل الأجر الأساسي مضافاً إليه البدلات والمزايا الثابتة المستحقة بصفة دورية." } }
+  ]
+}
+</script>
+<style>
+  :root{
+    --bg:#f3f5f1;
+    --surface:#ffffff;
+    --surface-2:#eef3ee;
+    --ink:#16211a;
+    --muted:#5c6d61;
+    --line:#d9e2d9;
+    --green:#006c35;
+    --green-deep:#073a22;
+    --green-panel:#08351f;
+    --gold:#b8860b;
+    --gold-bright:#d9a821;
+    --danger:#b3352b;
+    --focus:#0a7a3f;
+    --shadow:0 10px 30px rgba(10,50,28,.10);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0d130f;
+      --surface:#151d17;
+      --surface-2:#1b261e;
+      --ink:#edf3ed;
+      --muted:#a3b5a6;
+      --line:#2b3a2f;
+      --green:#3cb371;
+      --green-deep:#0a2e1e;
+      --green-panel:#0a2e1e;
+      --gold:#d9a821;
+      --gold-bright:#e7bc3e;
+      --danger:#e07a6f;
+      --focus:#57c785;
+      --shadow:0 10px 30px rgba(0,0,0,.45);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
+    font-size:16px;line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  button,[role="button"],select,summary,input:not([type="checkbox"],[type="radio"]){min-height:2.25rem}
+  :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 20px 64px}
+
+  /* ---------- Header ---------- */
+  header{padding:38px 0 8px}
+  .law-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--surface-2);border:1px solid var(--line);
+    color:var(--green);font-weight:600;font-size:.85rem;
+    padding:4px 14px;border-radius:999px;
+  }
+  .law-tag::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--green)}
+  h1{font-size:clamp(1.9rem,5vw,2.9rem);line-height:1.3;margin:14px 0 8px;font-weight:700}
+  h1 .accent{color:var(--green)}
+  .lead{color:var(--muted);font-size:1.06rem;max-width:46rem;margin:0}
+  .lead strong{color:var(--ink)}
+
+  /* ---------- Tool layout ---------- */
+  .tool{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:28px;align-items:start}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .form-card{padding:26px 26px 22px}
+  .form-card h2,.result-card h2{font-size:1.15rem;margin:0 0 4px;font-weight:700}
+  .card-sub{color:var(--muted);font-size:.92rem;margin:0 0 20px}
+
+  label.field-label{display:block;font-weight:600;margin:20px 0 8px;font-size:.98rem}
+  label.field-label:first-of-type{margin-top:0}
+  .hint{font-weight:400;color:var(--muted);font-size:.85rem}
+  .money-input{position:relative}
+  .money-input input{
+    width:100%;padding:12px 16px;padding-right:96px;
+    font:inherit;font-size:1.25rem;font-weight:700;color:var(--ink);
+    background:var(--surface);border:1.5px solid var(--line);border-radius:10px;
+    direction:ltr;text-align:left;
+  }
+  .money-input .unit{
+    position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    color:var(--muted);font-weight:600;font-size:.95rem;pointer-events:none;
+  }
+  [hidden]{display:none!important}
+  .money-input input:focus,.num-input:focus,.date-input:focus{border-color:var(--green);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 22%,transparent)}
+  input.invalid{border-color:var(--danger)!important}
+  .error-msg{display:none;color:var(--danger);font-size:.86rem;margin-top:6px;font-weight:500}
+  .error-msg.show{display:block}
+
+  /* mode tabs */
+  .tabs{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:4px;gap:4px}
+  .tabs button{
+    flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-weight:600;
+    padding:8px 6px;border-radius:7px;cursor:pointer;font-size:.95rem;min-height:2.5rem;
+  }
+  .tabs button[aria-selected="true"]{background:var(--surface);color:var(--green);box-shadow:0 1px 5px rgba(0,0,0,.12)}
+  .duration-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .num-input,.date-input{
+    width:100%;padding:10px 14px;font:inherit;font-size:1.1rem;font-weight:600;color:var(--ink);
+    background:var(--surface);border:1.5px solid var(--line);border-radius:10px;
+  }
+  .num-input{direction:ltr;text-align:left}
+  .mini-label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:5px;font-weight:500}
+  .duration-text{margin-top:10px;font-size:.92rem;color:var(--green);font-weight:600;min-height:1.6em}
+
+  /* reason radios */
+  .reasons{display:grid;gap:10px}
+  .reason{
+    display:flex;gap:12px;align-items:flex-start;cursor:pointer;
+    border:1.5px solid var(--line);border-radius:10px;padding:13px 15px;background:var(--surface);
+    transition:border-color .15s,background .15s;
+  }
+  .reason:hover{border-color:var(--green)}
+  .reason input{margin-top:6px;width:19px;height:19px;accent-color:var(--green);flex:none;min-height:0}
+  .reason .r-title{font-weight:700;display:block;line-height:1.5}
+  .reason .r-desc{color:var(--muted);font-size:.87rem;display:block;line-height:1.6}
+  .reason.checked{border-color:var(--green);background:color-mix(in srgb,var(--green) 7%,var(--surface))}
+  .reason .r-badge{
+    margin-inline-start:auto;flex:none;background:var(--surface-2);border:1px solid var(--line);
+    color:var(--green);font-size:.78rem;font-weight:700;border-radius:999px;padding:2px 10px;line-height:1.7;
+  }
+  .reason.checked .r-badge{background:var(--green);color:#fff;border-color:var(--green)}
+
+  .form-actions{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+  .btn{
+    font:inherit;font-weight:700;cursor:pointer;border-radius:10px;padding:11px 22px;min-height:3rem;
+    border:1.5px solid var(--green);background:var(--green);color:#fff;font-size:1rem;
+  }
+  .btn:hover{filter:brightness(1.08)}
+  .btn.ghost{background:transparent;color:var(--green)}
+  .btn.ghost:hover{background:color-mix(in srgb,var(--green) 8%,transparent)}
+
+  /* ---------- Result ---------- */
+  .result-card{background:var(--green-panel);color:#eef6ef;border:1px solid var(--green-deep);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;position:sticky;top:18px}
+  .result-card h2{color:#fff}
+  .result-card .card-sub{color:#b9d2bf}
+  .final-label{font-size:.95rem;color:#b9d2bf;margin-top:6px}
+  .final-amount{font-size:clamp(2.3rem,6vw,3.2rem);font-weight:700;line-height:1.25;color:#fff;direction:ltr;text-align:right}
+  [dir="rtl"] .final-amount{text-align:right}
+  .final-amount .cur{font-size:1.15rem;color:var(--gold-bright);font-weight:600}
+  .equiv{color:#cfe6d3;font-size:.95rem;margin-top:2px}
+  .equiv strong{color:#fff}
+  .zero-note{display:none;background:rgba(217,168,33,.14);border:1px solid rgba(217,168,33,.5);color:#f3dfa0;border-radius:10px;padding:10px 14px;font-size:.9rem;margin-top:14px;line-height:1.7}
+  .zero-note.show{display:block}
+
+  .breakdown{margin-top:22px;border-top:1px solid rgba(255,255,255,.16);padding-top:16px}
+  .breakdown h3{margin:0 0 10px;font-size:1rem;color:#fff}
+  .b-row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.14);font-size:.95rem}
+  .b-row:last-child{border-bottom:0}
+  .b-row .b-name{color:#cfe6d3}
+  .b-row .b-name small{display:block;color:#9dbfa6;font-size:.8rem}
+  .b-row .b-val{font-weight:700;color:#fff;white-space:nowrap;direction:ltr}
+  .b-row.total .b-name{color:#fff;font-weight:700}
+  .b-row.total .b-val{color:var(--gold-bright);font-size:1.08rem}
+  .b-row.deduct .b-val{color:#f0b429}
+
+  .bar{margin-top:18px}
+  .bar-track{display:flex;height:14px;border-radius:7px;overflow:hidden;background:rgba(255,255,255,.12)}
+  .bar-a{background:var(--gold-bright);transition:width .4s ease}
+  .bar-b{background:#4cc084;transition:width .4s ease}
+  .bar-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;font-size:.82rem;color:#b9d2bf}
+  .bar-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:6px}
+  .bar-legend .lg-a i{background:var(--gold-bright)}
+  .bar-legend .lg-b i{background:#4cc084}
+
+  /* tier scale */
+  .tiers{margin-top:20px}
+  .tiers h3{margin:0 0 10px;font-size:1rem;color:#fff}
+  .tier-track{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+  .tier{
+    border:1px solid rgba(255,255,255,.18);border-radius:9px;padding:8px 6px;text-align:center;
+    font-size:.78rem;color:#b9d2bf;line-height:1.55;background:rgba(255,255,255,.04);
+  }
+  .tier b{display:block;color:#dcebdd;font-size:.9rem}
+  .tier.active{background:var(--gold-bright);border-color:var(--gold-bright);color:#3a2c00}
+  .tier.active b{color:#241b00}
+  .tier-note{font-size:.85rem;color:#b9d2bf;margin-top:8px}
+
+  .result-actions{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .btn.light{background:#fff;border-color:#fff;color:var(--green-deep)}
+  .btn.outline-light{background:transparent;border-color:rgba(255,255,255,.5);color:#fff}
+  .btn.outline-light:hover{background:rgba(255,255,255,.1)}
+  .copied{font-size:.88rem;color:#a9e5bb;align-self:center;display:none;font-weight:600}
+  .copied.show{display:inline}
+
+  /* ---------- Content sections ---------- */
+  section.content{margin-top:52px}
+  section.content > h2{font-size:1.55rem;margin:0 0 6px;font-weight:700}
+  section.content > .sec-sub{color:var(--muted);margin:0 0 22px;max-width:48rem}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .law-card{padding:24px 26px}
+  .law-card .art-no{
+    display:inline-block;background:var(--green);color:#fff;font-weight:700;font-size:.85rem;
+    border-radius:8px;padding:3px 13px;margin-bottom:12px;
+  }
+  .law-card h3{margin:0 0 10px;font-size:1.2rem}
+  .law-card p{margin:0 0 10px;color:var(--ink)}
+  .law-card p:last-child{margin-bottom:0}
+  .law-card .muted{color:var(--muted);font-size:.93rem}
+  table{border-collapse:collapse;width:100%;font-size:.95rem}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+  table th,table td{padding:11px 14px;text-align:right;border-bottom:1px solid var(--line)}
+  table thead th{background:var(--surface-2);font-weight:700}
+  table tbody tr:last-child td{border-bottom:0}
+  td.num,th.num{direction:ltr;text-align:left;font-weight:600;white-space:nowrap}
+  [dir="rtl"] td.num,[dir="rtl"] th.num{text-align:left}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+  .step .n{
+    width:36px;height:36px;border-radius:50%;background:var(--surface-2);border:1px solid var(--line);
+    color:var(--green);font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:10px;font-size:1.05rem;
+  }
+  .step h3{margin:0 0 6px;font-size:1.05rem}
+  .step p{margin:0;color:var(--muted);font-size:.93rem}
+
+  .example-note{margin-top:14px;color:var(--muted);font-size:.93rem}
+  .try-btn{
+    font:inherit;font-weight:700;cursor:pointer;border-radius:9px;padding:9px 18px;min-height:2.75rem;
+    border:1.5px solid var(--green);background:transparent;color:var(--green);margin-top:12px;
+  }
+  .try-btn:hover{background:color-mix(in srgb,var(--green) 8%,transparent)}
+
+  details.faq{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-bottom:10px}
+  details.faq summary{cursor:pointer;font-weight:700;padding:15px 20px;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:3rem}
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq summary::after{content:"+";font-size:1.4rem;color:var(--green);font-weight:400;line-height:1}
+  details.faq[open ] summary::after{content:"−"}
+  details.faq .faq-body{padding:0 20px 16px;color:var(--muted)}
+  details.faq .faq-body p{margin:0 0 8px}
+  details.faq .faq-body p:last-child{margin:0}
+
+  .disclaimer{
+    margin-top:44px;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--line));
+    background:color-mix(in srgb,var(--gold) 7%,var(--surface));
+    border-radius:var(--radius);padding:20px 24px;font-size:.94rem;
+  }
+  .disclaimer strong{color:var(--gold)}
+  .disclaimer p{margin:6px 0 0;color:var(--muted)}
+  footer{margin-top:34px;color:var(--muted);font-size:.86rem;border-top:1px solid var(--line);padding-top:18px}
+  footer a{color:var(--green)}
+
+  @media (max-width:880px){
+    .tool{grid-template-columns:1fr}
+    .result-card{position:static}
+    .two-col{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+    .tier-track{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .bar-a,.bar-b{transition:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="law-tag">نظام العمل السعودي · المادتان 84 و85</span>
+    <h1>حاسبة <span class="accent">مكافأة نهاية الخدمة</span></h1>
+    <p class="lead">احسب مستحقاتك عند انتهاء العلاقة العمالية وفق نظام العمل السعودي: <strong>أجر نصف شهر عن كل سنة من السنوات الخمس الأولى، وأجر شهر كامل عن كل سنة بعدها</strong> — مع تطبيق شرائح الاستقالة. النتيجة تظهر فوراً مع التفصيل الكامل.</p>
+  </header>
+
+  <main>
+  <div class="tool">
+
+    <!-- ======== Form ======== -->
+    <div class="card form-card">
+      <h2>بيانات الحساب</h2>
+      <p class="card-sub">أدخل بياناتك وستتحدّث النتيجة تلقائياً أثناء الكتابة.</p>
+
+      <label class="field-label" for="wage">الأجر الشهري الأخير <span class="hint">(ريال سعودي — يُحتسب على أساس آخر أجر تقاضاه العامل شاملاً البدلات الثابتة)</span></label>
+      <div class="money-input">
+        <input type="number" id="wage" inputmode="decimal" min="0" step="any" value="10000" aria-describedby="wageError" />
+        <span class="unit">ر.س / شهر</span>
+      </div>
+      <p class="error-msg" id="wageError">أدخل أجراً شهرياً أكبر من صفر.</p>
+
+      <label class="field-label" id="durLabel">مدة الخدمة</label>
+      <div class="tabs" role="tablist" aria-labelledby="durLabel">
+        <button type="button" role="tab" id="tabManual" aria-selected="true">بالسنوات والأشهر</button>
+        <button type="button" role="tab" id="tabDates" aria-selected="false">بتاريخ البدء والانتهاء</button>
+      </div>
+
+      <div id="panelManual" style="margin-top:14px">
+        <div class="duration-grid">
+          <div>
+            <label class="mini-label" for="years">سنوات الخدمة</label>
+            <input class="num-input" type="number" id="years" inputmode="numeric" min="0" max="60" step="1" value="7" />
+          </div>
+          <div>
+            <label class="mini-label" for="months">أشهر إضافية</label>
+            <input class="num-input" type="number" id="months" inputmode="numeric" min="0" max="11" step="1" value="0" />
+          </div>
+        </div>
+        <p class="error-msg" id="durError">أدخل مدة خدمة صحيحة (الأشهر من 0 إلى 11).</p>
+      </div>
+
+      <div id="panelDates" style="margin-top:14px" hidden>
+        <div class="duration-grid">
+          <div>
+            <label class="mini-label" for="startDate">تاريخ بداية العمل</label>
+            <input class="date-input" type="date" id="startDate" />
+          </div>
+          <div>
+            <label class="mini-label" for="endDate">تاريخ نهاية الخدمة</label>
+            <input class="date-input" type="date" id="endDate" />
+          </div>
+        </div>
+        <p class="error-msg" id="dateError">تأكد أن تاريخ النهاية بعد تاريخ البداية.</p>
+      </div>
+      <p class="duration-text" id="durationText" aria-live="polite"></p>
+
+      <label class="field-label" id="reasonLabel">سبب انتهاء العلاقة العمالية</label>
+      <div class="reasons" role="radiogroup" aria-labelledby="reasonLabel">
+        <label class="reason checked">
+          <input type="radio" name="reason" value="employer" checked />
+          <span>
+            <span class="r-title">إنهاء الخدمة من صاحب العمل</span>
+            <span class="r-desc">أنهى صاحب العمل العقد، أو بلغتَ سن التقاعد، أو انتهت الخدمة لسبب لا يعود إليك.</span>
+          </span>
+          <span class="r-badge">المكافأة كاملة</span>
+        </label>
+        <label class="reason">
+          <input type="radio" name="reason" value="contract_end" />
+          <span>
+            <span class="r-title">انتهاء مدة العقد محدد المدة</span>
+            <span class="r-desc">انتهت مدة العقد المحدد دون تجديد، فتستحق المكافأة كاملة مهما قصُرت المدة.</span>
+          </span>
+          <span class="r-badge">المكافأة كاملة</span>
+        </label>
+        <label class="reason">
+          <input type="radio" name="reason" value="resign" />
+          <span>
+            <span class="r-title">الاستقالة</span>
+            <span class="r-desc">أنهيتَ العقد بمحض إرادتك؛ تُطبَّق شرائح المادة 85 بحسب مدة خدمتك.</span>
+          </span>
+          <span class="r-badge">حسب المادة 85</span>
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn" id="calcBtn">احسب المكافأة</button>
+        <button type="button" class="btn ghost" id="resetBtn">إعادة تعيين</button>
+      </div>
+    </div>
+
+    <!-- ======== Result ======== -->
+    <div class="card result-card" aria-live="polite">
+      <h2>النتيجة</h2>
+      <p class="card-sub" id="resultSummary">إنهاء من صاحب العمل · خدمة 7 سنوات · أجر 10,000 ر.س</p>
+
+      <div class="final-label">مكافأة نهاية الخدمة المستحقة</div>
+      <div class="final-amount"><span id="finalAmount">45,000</span> <span class="cur">ر.س</span></div>
+      <div class="equiv" id="equivText">تعادل <strong>4.5</strong> شهراً من الأجر</div>
+      <div class="zero-note" id="zeroNote"></div>
+
+      <div class="breakdown">
+        <h3>تفصيل الحساب — خطوة بخطوة</h3>
+        <div class="b-row">
+          <span class="b-name">السنوات الخمس الأولى<small id="part1Calc">7 سنوات تُحتسب منها 5 × نصف شهر</small></span>
+          <span class="b-val" id="part1Val">25,000</span>
+        </div>
+        <div class="b-row">
+          <span class="b-name">ما زاد على خمس سنوات<small id="part2Calc">2 سنة × أجر شهر كامل</small></span>
+          <span class="b-val" id="part2Val">20,000</span>
+        </div>
+        <div class="b-row">
+          <span class="b-name">إجمالي المكافأة قبل نسبة الاستحقاق<small>حسب المادة 84</small></span>
+          <span class="b-val" id="grossVal">45,000</span>
+        </div>
+        <div class="b-row deduct" id="factorRow" hidden>
+          <span class="b-name">نسبة الاستحقاق عند الاستقالة<small>حسب المادة 85</small></span>
+          <span class="b-val" id="factorVal">× ‏1</span>
+        </div>
+        <div class="b-row total">
+          <span class="b-name">المبلغ المستحق نهائياً</span>
+          <span class="b-val" id="totalVal">45,000 ر.س</span>
+        </div>
+      </div>
+
+      <div class="bar" aria-hidden="true">
+        <div class="bar-track"><div class="bar-a" id="barA" style="width:56%"></div><div class="bar-b" id="barB" style="width:44%"></div></div>
+        <div class="bar-legend">
+          <span class="lg-a"><i></i>أول 5 سنوات (نصف شهر/سنة)</span>
+          <span class="lg-b"><i></i>بعد 5 سنوات (شهر/سنة)</span>
+        </div>
+      </div>
+
+      <div class="tiers" id="tiersBox" hidden>
+        <h3>شرائح الاستقالة — المادة 85</h3>
+        <div class="tier-track">
+          <div class="tier" data-tier="0"><b>لا شيء</b>أقل من سنتين</div>
+          <div class="tier" data-tier="1"><b>الثلث ‏(⅓)</b>سنتان – أقل من 5</div>
+          <div class="tier" data-tier="2"><b>الثلثان ‏(⅔)</b>5 – أقل من 10 سنوات</div>
+          <div class="tier" data-tier="3"><b>كاملة</b>10 سنوات فأكثر</div>
+        </div>
+        <p class="tier-note" id="tierNote"></p>
+      </div>
+
+      <div class="result-actions">
+        <button type="button" class="btn light" id="copyBtn">نسخ النتيجة</button>
+        <span class="copied" id="copiedMsg">تم النسخ ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== How it works ======== -->
+  <section class="content" aria-labelledby="howH">
+    <h2 id="howH">كيف تُحسب المكافأة؟</h2>
+    <p class="sec-sub">ثلاث خطوات فقط، وهي نفس الطريقة التي تعتمدها المنصات الرسمية عند تقدير المستحقات.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <h3>احسب المكافأة الأساسية</h3>
+        <p>نصف أجر شهر عن كل سنة من أول خمس سنوات، وأجر شهر كامل عن كل سنة بعدها — وكسور السنة تُحتسب بنسبة ما قضيتَه منها (المادة 84).</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h3>طبّق نسبة الاستحقاق</h3>
+        <p>إذا انتهت الخدمة من صاحب العمل أو بانتهاء العقد فالمكافأة كاملة. أما الاستقالة فتخضع لشرائح المادة 85: من لا شيء قبل السنتين إلى الكاملة بعد عشر سنوات.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h3>الناتج هو مستحقك التقديري</h3>
+        <p>يُقدَّر المبلغ على أساس آخر أجر تقاضيتَه شاملاً البدلات الثابتة، ويُصرف عند انتهاء العلاقة العمالية ضمن تسوية المستحقات النهائية.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== Articles ======== -->
+  <section class="content" aria-labelledby="lawH">
+    <h2 id="lawH">النص النظامي باختصار</h2>
+    <p class="sec-sub">المادتان اللتان تحكمان المكافأة في نظام العمل السعودي الصادر بالمرسوم الملكي رقم م/51.</p>
+    <div class="two-col">
+      <article class="card law-card">
+        <span class="art-no">المادة 84</span>
+        <h3>مقدار المكافأة</h3>
+        <p>إذا انتهت علاقة العمل وجب على صاحب العمل أن يدفع للعامل مكافأة عن مدة خدمته، تُحسب على أساس <strong>أجر نصف شهر عن كل سنة من السنوات الخمس الأولى، وأجر شهر عن كل سنة مما زاد على ذلك</strong>.</p>
+        <p>تُقدَّر المكافأة على أساس <strong>آخر أجر</strong> تقاضاه العامل، وإذا كان الأجر كله أو بعضه نظير عمولة أو نسبة، دخل في تقديرها متوسط ما تقاضاه خلال مدة محددة نظاماً.</p>
+        <p class="muted">ويستحق العامل المكافأة عن كسور السنة بنسبة ما قضاه منها في الخدمة — لذلك تحسب هذه الحاسبة الأشهر الإضافية بدقة تناسبية.</p>
+      </article>
+      <article class="card law-card">
+        <span class="art-no">المادة 85</span>
+        <h3>الاستقالة وشرائحها</h3>
+        <p>إذا كان انتهاء علاقة العمل بسبب <strong>استقالة العامل</strong>، فإنه يستحق من المكافأة المحسوبة بالمادة 84 ما يلي:</p>
+        <p class="muted">لاحظ أن هذه الشرائح لا تُطبَّق إذا أنهى صاحب العمل العقد أو انتهت مدته؛ ففي هاتين الحالتين تكون المكافأة كاملة مهما كانت مدة الخدمة.</p>
+        <div class="tbl-wrap" style="margin-top:12px">
+          <table>
+            <thead><tr><th>مدة الخدمة عند الاستقالة</th><th>المستحق</th></tr></thead>
+            <tbody>
+              <tr><td>أقل من سنتين</td><td>لا يستحق شيئاً</td></tr>
+              <tr><td>سنتان إلى أقل من خمس سنوات</td><td>ثلث المكافأة (⅓)</td></tr>
+              <tr><td>خمس سنوات إلى أقل من عشر</td><td>ثلثا المكافأة (⅔)</td></tr>
+              <tr><td>عشر سنوات فأكثر</td><td>المكافأة كاملة</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ======== Worked example ======== -->
+  <section class="content" aria-labelledby="exH">
+    <h2 id="exH">مثال محلول — تحقّق بنفسك</h2>
+    <p class="sec-sub">عامل أجره الشهري الأخير 10,000 ريال وخدم 7 سنوات. هكذا تخرج الأرقام خطوة بخطوة:</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>الخطوة</th><th>العملية</th><th class="num">الناتج (ر.س)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>أول 5 سنوات</td><td>5 × نصف شهر × 10,000</td><td class="num">25,000</td></tr>
+          <tr><td>السنتان التاليتان</td><td>2 × شهر كامل × 10,000</td><td class="num">20,000</td></tr>
+          <tr><td><strong>الإجمالي — إنهاء من صاحب العمل</strong></td><td>25,000 + 20,000 (المكافأة كاملة)</td><td class="num"><strong>45,000</strong></td></tr>
+          <tr><td><strong>الإجمالي — في حال الاستقالة</strong></td><td>45,000 × ⅔ (خدمة بين 5 و10 سنوات)</td><td class="num"><strong>30,000</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button" class="try-btn" id="tryExample">جرّب هذا المثال في الحاسبة ↑</button>
+    <p class="example-note">غيّر سبب الانتهاء بين «إنهاء من صاحب العمل» و«الاستقالة» ولاحظ الفرق بين 45,000 و30,000 ريالاً.</p>
+  </section>
+
+  <!-- ======== Notes ======== -->
+  <section class="content" aria-labelledby="notesH">
+    <h2 id="notesH">حالات خاصة تستحق الانتباه</h2>
+    <p class="sec-sub">المكافأة ليست قاعدة واحدة للجميع؛ هذه أبرز الاستثناءات المنصوص عليها في نظام العمل.</p>
+    <div class="steps">
+      <div class="step">
+        <h3>استقالة العاملة بسبب الزواج أو الولادة</h3>
+        <p>تستحق العاملة المكافأة كاملة إذا أنهت العقد خلال ستة أشهر من عقد زواجها، أو خلال ثلاثة أشهر من تاريخ الوضع، متى أخطرت صاحب العمل كتابةً قبل الانتهاء (المادة 87).</p>
+      </div>
+      <div class="step">
+        <h3>القوة القاهرة</h3>
+        <p>إذا انتهت علاقة العمل بسبب قوة قاهرة، استحق العامل مكافأة كاملة تحسب وفق المادة 84 (المادة 86).</p>
+      </div>
+      <div class="step">
+        <h3>حالات لا تُستحق فيها المكافأة</h3>
+        <p>لا يستحق العامل المكافأة إذا فُسخ عقده لأحد أسباب المادة 80 (كالتزوير أو الغياب الطويل دون عذر)، أو إذا انتهت خدمته خلال فترة التجربة.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FAQ ======== -->
+  <section class="content" aria-labelledby="faqH">
+    <h2 id="faqH">أسئلة شائعة</h2>
+    <p class="sec-sub">إجابات موجزة عن أكثر ما يُسأل حول مكافأة نهاية الخدمة في السعودية.</p>
+
+    <details class="faq">
+      <summary>هل تُحسب المكافأة على الراتب الأساسي أم على الأجر الإجمالي؟</summary>
+      <div class="faq-body">
+        <p>على أساس <strong>آخر أجر</strong> تقاضاه العامل. و«الأجر» في نظام العمل يشمل الأجر الأساسي وبدل السكن وبدل النقل وجميع البدلات والمزايا الثابتة المستحقة بصفة دورية منتظمة. أما البدلات المتغيرة غير الثابتة (كالأجر الإضافي المتقطع) فلا تدخل عادة في التقدير.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>عملت 7 سنوات ثم استقلت — كم أستحق؟</summary>
+      <div class="faq-body">
+        <p>تُحسب مكافأتك أولاً بالمادة 84، ثم تأخذ ثلثيها (⅔) لأن خدمتك بين خمس وعشر سنوات. فإذا كان أجرك 10,000 ريال: المكافأة الأساسية 45,000 ريال، ومستحقك عند الاستقالة 30,000 ريال.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>استقلت قبل إكمال سنتين، هل أخسر كل شيء؟</summary>
+      <div class="faq-body">
+        <p>بالنسبة لمكافأة نهاية الخدمة نعم: لا تستحق شيئاً منها إذا قلّت خدمتك عن سنتين وكنت أنت المستقيل (المادة 85). لكن تبقى لك حقوق أخرى لا تسقط بالاستقالة، مثل مقابل رصيد الإجازات غير المستعمل وأي أجور متأخرة.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>عقدي محدد المدة وانتهى دون تجديد — ما مستحقي؟</summary>
+      <div class="faq-body">
+        <p>تستحق المكافأة كاملة بحسب المادة 84 مهما كانت مدة خدمتك، لأن انتهاء العقد بانقضاء مدته ليس استقالة ولا يخضع لشرائح المادة 85.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>كيف تُحتسب كسور السنة والأشهر المتبقية؟</summary>
+      <div class="faq-body">
+        <p>بنسبة ما قضيته من السنة فعلاً: فمن عمل 7 سنوات و6 أشهر مثلاً تُحتسب له نصف سنة إضافية بنفس القاعدة (نصف شهر إن كانت ضمن الخمس الأولى، أو شهر كامل إن تجاوزها). لذلك تتيح الحاسبة إدخال الأشهر أو تاريخي البدء والانتهاء.</p>
+      </div>
+    </details>
+
+    <details class="faq">
+      <summary>متى يصرف صاحب العمل المكافأة؟</summary>
+      <div class="faq-body">
+        <p>عند انتهاء العلاقة العمالية ضمن تسوية المستحقات النهائية. فإن كان الانتهاء من صاحب العمل وجب تصفية حقوق العامل خلال أسبوع على الأكثر من انتهاء العلاقة، وإن كان من العامل فخلال أسبوعين على الأكثر (المادة 88).</p>
+      </div>
+    </details>
+  </section>
+
+  <div class="disclaimer" role="note">
+    <strong>تنبيه:</strong> هذه الحاسبة أداة تقديرية
+    <p>النتيجة تقدير مبني على المادتين 84 و85 من نظام العمل السعودي وعلى البيانات التي تدخلها، وقد تختلف المستحقات الفعلية بحسب طبيعة العقد، ومكوّنات الأجر، والبدلات، والإجازات، وأي اتفاقيات أو أحكام خاصة بحالتك. هذه المعلومات عامة ولا تُعد استشارة قانونية؛ للتحقق من مستحقاتك بدقة راجع إدارة الموارد البشرية لدى جهة عملك، أو المنصات الرسمية لوزارة الموارد البشرية والتنمية الاجتماعية، أو مستشاراً قانونياً مختصاً.</p>
+  </div>
+
+  </main>
+
+  <footer>
+    حاسبة مكافأة نهاية الخدمة — وفق نظام العمل السعودي (المرسوم الملكي رقم م/51 وتعديلاته). المصدر النصي: نظام العمل، المادتان <a href="https://laws.boe.gov.sa/BoELaws/Laws/LawDetails/083f701b-1ba6-4eac-9542-a9b700f2887b/1" target="_blank" rel="noopener">84 و85 — هيئة الخبراء بمجلس الوزراء (بوابة الأنظمة)</a>.
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var $ = function(id){ return document.getElementById(id); };
+
+  var wageEl=$("wage"), yearsEl=$("years"), monthsEl=$("months"),
+      startEl=$("startDate"), endEl=$("endDate"),
+      wageError=$("wageError"), durError=$("durError"), dateError=$("dateError"),
+      durationText=$("durationText"),
+      finalAmount=$("finalAmount"), equivText=$("equivText"),
+      resultSummary=$("resultSummary"), zeroNote=$("zeroNote"),
+      part1Calc=$("part1Calc"), part1Val=$("part1Val"),
+      part2Calc=$("part2Calc"), part2Val=$("part2Val"),
+      grossVal=$("grossVal"), factorRow=$("factorRow"), factorVal=$("factorVal"),
+      totalVal=$("totalVal"), barA=$("barA"), barB=$("barB"),
+      tiersBox=$("tiersBox"), tierNote=$("tierNote"),
+      copyBtn=$("copyBtn"), copiedMsg=$("copiedMsg");
+
+  var mode="manual";
+  var lastResult=null;
+
+  function fmt(n){
+    return Math.round(n).toLocaleString("en-US");
+  }
+  function fmt2(n){
+    var r = Math.round(n*100)/100;
+    return (r % 1 === 0) ? r.toLocaleString("en-US") : r.toLocaleString("en-US",{minimumFractionDigits:1, maximumFractionDigits:2});
+  }
+  function pluralYears(n){
+    if (n === 1) return "سنة واحدة";
+    if (n === 2) return "سنتان";
+    if (n >= 3 && n <= 10) return n + " سنوات";
+    return n + " سنة";
+  }
+  function durationPhrase(totalYearsFloat){
+    var totalMonths = Math.round(totalYearsFloat*12);
+    var y = Math.floor(totalMonths/12), m = totalMonths%12;
+    if (y===0 && m===0) return "أقل من شهر";
+    var parts=[];
+    if (y>0) parts.push(pluralYears(y));
+    if (m>0) parts.push(m===1 ? "شهر واحد" : (m===2 ? "شهران" : (m<=10 ? m+" أشهر" : m+" شهراً")));
+    return parts.join(" و");
+  }
+
+  function getReason(){
+    var r = document.querySelector('input[name="reason"]:checked');
+    return r ? r.value : "employer";
+  }
+  function reasonLabel(v){
+    if (v==="resign") return "الاستقالة";
+    if (v==="contract_end") return "انتهاء مدة العقد";
+    return "إنهاء من صاحب العمل";
+  }
+
+  // service years from date mode
+  function yearsFromDates(){
+    if (!startEl.value || !endEl.value) return null;
+    var s = new Date(startEl.value+"T00:00:00");
+    var e = new Date(endEl.value+"T00:00:00");
+    if (isNaN(s) || isNaN(e) || e <= s) return null;
+    var months = (e.getFullYear()-s.getFullYear())*12 + (e.getMonth()-s.getMonth());
+    var anchor = new Date(s.getFullYear(), s.getMonth()+months, s.getDate());
+    if (anchor > e){ months -= 1; anchor = new Date(s.getFullYear(), s.getMonth()+months, s.getDate()); }
+    var days = Math.round((e - anchor)/86400000);
+    return (months + days/30.4375)/12;
+  }
+
+  function tierFor(yearsFloat){
+    if (yearsFloat < 2) return {idx:0, factor:0, label:"لا شيء (أقل من سنتين)"};
+    if (yearsFloat < 5) return {idx:1, factor:1/3, label:"الثلث (⅓)"};
+    if (yearsFloat < 10) return {idx:2, factor:2/3, label:"الثلثان (⅔)"};
+    return {idx:3, factor:1, label:"المكافأة كاملة"};
+  }
+
+  function calculate(){
+    var wage = parseFloat(wageEl.value);
+    var wageOk = !isNaN(wage) && wage > 0;
+    wageError.classList.toggle("show", !wageOk && wageEl.value !== "");
+    wageEl.classList.toggle("invalid", !wageOk && wageEl.value !== "");
+
+    var svcYears = null, durOk = true;
+    if (mode === "manual"){
+      var y = parseFloat(yearsEl.value), m = parseFloat(monthsEl.value);
+      if (isNaN(y) || y < 0 || isNaN(m) || m < 0 || m > 11){ durOk = false; }
+      else svcYears = y + m/12;
+      durError.classList.toggle("show", !durOk);
+      dateError.classList.remove("show");
+    } else {
+      svcYears = yearsFromDates();
+      durOk = svcYears !== null;
+      dateError.classList.toggle("show", !durOk && (startEl.value!=="" || endEl.value!==""));
+      durError.classList.remove("show");
+    }
+
+    if (!wageOk || !durOk || svcYears === null || svcYears <= 0){
+      durationText.textContent = (durOk && svcYears>0) ? "مدة الخدمة: " + durationPhrase(svcYears) : "";
+      return;
+    }
+
+    durationText.textContent = "مدة الخدمة: " + durationPhrase(svcYears) + " (" + fmt2(svcYears) + " سنة)";
+
+    var firstY = Math.min(svcYears, 5);
+    var extraY = Math.max(svcYears - 5, 0);
+    var part1 = wage * firstY * 0.5;
+    var part2 = wage * extraY * 1;
+    var gross = part1 + part2;
+
+    var reason = getReason();
+    var factor = 1, tier = null;
+    if (reason === "resign"){ tier = tierFor(svcYears); factor = tier.factor; }
+    var finalAmt = gross * factor;
+
+    // summary line
+    resultSummary.textContent = reasonLabel(reason) + " · خدمة " + durationPhrase(svcYears) + " · أجر " + fmt(wage) + " ر.س";
+
+    // final
+    finalAmount.textContent = fmt(finalAmt);
+    var equivMonths = wage > 0 ? finalAmt / wage : 0;
+    equivText.innerHTML = "تعادل <strong>" + fmt2(equivMonths) + "</strong> شهراً من الأجر" +
+      (reason==="resign" && factor<1 ? " · بعد تطبيق نسبة المادة 85" : "");
+
+    // zero note
+    if (finalAmt === 0){
+      zeroNote.textContent = "وفق المادة 85، من استقال قبل إكمال سنتين من الخدمة لا يستحق مكافأة نهاية خدمة. وتذكّر أن حقوقاً أخرى — كأجر الإجازات غير المستعملة والأجور المتأخرة — تبقى مستحقة لك رغم ذلك.";
+      zeroNote.classList.add("show");
+    } else { zeroNote.classList.remove("show"); }
+
+    // breakdown
+    part1Calc.textContent = fmt2(firstY) + " سنة × نصف شهر (" + fmt(wage*0.5) + " ر.س)";
+    part1Val.textContent = fmt(part1);
+    part2Calc.textContent = extraY > 0 ? fmt2(extraY) + " سنة × أجر شهر كامل (" + fmt(wage) + " ر.س)" : "لا سنوات بعد الخمس الأولى بعد";
+    part2Val.textContent = fmt(part2);
+    grossVal.textContent = fmt(gross);
+    if (reason === "resign"){
+      factorRow.hidden = false;
+      factorVal.textContent = factor===0 ? "× 0" : "× " + (factor===1/3 ? "⅓" : (factor===2/3 ? "⅔" : "1")) + " = " + fmt(finalAmt);
+    } else factorRow.hidden = true;
+    totalVal.textContent = fmt(finalAmt) + " ر.س";
+
+    // bar
+    var tot = part1 + part2;
+    if (tot > 0){
+      barA.style.width = (part1/tot*100) + "%";
+      barB.style.width = (part2/tot*100) + "%";
+    } else { barA.style.width = "0%"; barB.style.width = "0%"; }
+
+    // tiers
+    if (reason === "resign"){
+      tiersBox.hidden = false;
+      var cells = tiersBox.querySelectorAll(".tier");
+      for (var i=0;i<cells.length;i++){
+        cells[i].classList.toggle("active", parseInt(cells[i].getAttribute("data-tier"),10) === tier.idx);
+      }
+      tierNote.textContent = "خدمتك " + durationPhrase(svcYears) + " — تندرج في شريحة: " + tier.label + ".";
+    } else tiersBox.hidden = true;
+
+    lastResult = { wage:wage, years:svcYears, reason:reason, part1:part1, part2:part2, gross:gross, factor:factor, final:finalAmt };
+  }
+
+  // reason card styling
+  function syncReasonCards(){
+    document.querySelectorAll(".reason").forEach(function(el){
+      var input = el.querySelector("input");
+      el.classList.toggle("checked", input.checked);
+    });
+  }
+
+  // tabs
+  function setMode(next){
+    mode = next;
+    $("tabManual").setAttribute("aria-selected", next==="manual" ? "true":"false");
+    $("tabDates").setAttribute("aria-selected", next==="dates" ? "true":"false");
+    $("panelManual").hidden = next!=="manual";
+    $("panelDates").hidden = next!=="dates";
+    calculate();
+  }
+  $("tabManual").addEventListener("click", function(){ setMode("manual"); });
+  $("tabDates").addEventListener("click", function(){ setMode("dates"); });
+
+  // events
+  [wageEl, yearsEl, monthsEl, startEl, endEl].forEach(function(el){
+    el.addEventListener("input", calculate);
+    el.addEventListener("change", calculate);
+  });
+  document.querySelectorAll('input[name="reason"]').forEach(function(el){
+    el.addEventListener("change", function(){ syncReasonCards(); calculate(); });
+  });
+  $("calcBtn").addEventListener("click", function(){
+    calculate();
+    var card = document.querySelector(".result-card");
+    if (card) card.scrollIntoView({behavior:"smooth", block:"nearest"});
+  });
+  $("resetBtn").addEventListener("click", function(){
+    wageEl.value = ""; yearsEl.value = ""; monthsEl.value = "0";
+    startEl.value=""; endEl.value="";
+    document.querySelector('input[name="reason"][value="employer"]').checked = true;
+    syncReasonCards(); setMode("manual");
+    finalAmount.textContent = "0"; totalVal.textContent = "0 ر.س";
+    copiedMsg.classList.remove("show");
+    wageEl.focus();
+  });
+  $("tryExample").addEventListener("click", function(){
+    wageEl.value = "10000"; yearsEl.value = "7"; monthsEl.value = "0";
+    setMode("manual"); calculate();
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  copyBtn.addEventListener("click", function(){
+    if (!lastResult) return;
+    var lines = [
+      "نتيجة حاسبة مكافأة نهاية الخدمة (نظام العمل السعودي)",
+      "الأجر الشهري الأخير: " + fmt(lastResult.wage) + " ر.س",
+      "مدة الخدمة: " + durationPhrase(lastResult.years),
+      "سبب الانتهاء: " + reasonLabel(lastResult.reason),
+      "أول 5 سنوات: " + fmt(lastResult.part1) + " ر.س",
+      "ما بعد 5 سنوات: " + fmt(lastResult.part2) + " ر.س",
+      "الإجمالي قبل نسبة الاستحقاق: " + fmt(lastResult.gross) + " ر.س",
+      "المكافأة المستحقة: " + fmt(lastResult.final) + " ر.س",
+      "ملاحظة: تقدير تقريبي وفق المادتين 84 و85، وليس استشارة قانونية."
+    ];
+    var text = lines.join("\n");
+    function done(){ copiedMsg.classList.add("show"); setTimeout(function(){ copiedMsg.classList.remove("show"); }, 2500); }
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(); });
+    } else fallback();
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position="fixed"; ta.style.opacity="0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
+
+  syncReasonCards();
+  calculate();
+})();
+</script>
+</body>
+</html>
