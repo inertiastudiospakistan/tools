@@ -5,7 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
 <link rel="icon" href="data:," />
-<title>Sports Betting Calculator Suite</title>
+<title>Sports Betting Calculator Suite — Odds Converter, EV, Kelly, Arbitrage &amp; Parlay</title>
+<meta name="description" content="Free sports betting calculators: convert odds between decimal, fractional and American formats, check implied probability and the bookmaker's margin, find expected value, size bets with the Kelly criterion, spot arbitrage and build parlays — with every step of the working shown." />
+<link rel="canonical" href="https://inertiastudiospakistan.github.io/tools/sports-betting-calculator-suite.html" />
+<meta property="og:title" content="Sports Betting Calculator Suite — Odds, EV, Kelly, Arbitrage & Parlay" />
+<meta property="og:description" content="Six free betting calculators with every step of the working shown: odds converter, implied probability, expected value, Kelly staking, arbitrage and parlay builder." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://inertiastudiospakistan.github.io/tools/sports-betting-calculator-suite.html" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Sports Betting Calculator Suite",
+  "applicationCategory": "SportsApplication",
+  "operatingSystem": "Web",
+  "inLanguage": "en",
+  "description": "Six free sports betting calculators: odds converter, implied probability with bookmaker margin, expected value, Kelly staking, arbitrage and parlay builder.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is implied probability in betting?", "acceptedAnswer": { "@type": "Answer", "text": "Implied probability is the chance the odds themselves assign to an outcome: 1 divided by the decimal odds. Decimal odds of 2.50 imply a 40% chance. Because bookmakers build a margin into their odds, the implied probabilities of all outcomes in a market add up to more than 100%." } },
+    { "@type": "Question", "name": "How does the Kelly criterion work?", "acceptedAnswer": { "@type": "Answer", "text": "The Kelly criterion sizes a bet from your edge: stake fraction = (odds x your estimated probability - 1) / (odds - 1). It only suggests a bet when your estimated probability is higher than the odds imply. Many bettors use a fraction of the full Kelly stake, such as half or quarter Kelly, to reduce swings." } },
+    { "@type": "Question", "name": "What is expected value (EV) in sports betting?", "acceptedAnswer": { "@type": "Answer", "text": "Expected value is the average profit or loss per bet if the same bet were repeated many times: EV = (probability of winning x payout) - stake. A positive EV means the bet would profit on average at your estimated probability; a negative EV means it would lose on average." } },
+    { "@type": "Question", "name": "What is arbitrage betting?", "acceptedAnswer": { "@type": "Answer", "text": "Arbitrage is betting on every outcome of an event at different bookmakers when their combined implied probabilities add up to less than 100%. That guarantees a profit whatever the result, but the margins are small, bookmakers limit such accounts, and the odds can move before all legs are placed." } },
+    { "@type": "Question", "name": "How do parlay odds work?", "acceptedAnswer": { "@type": "Answer", "text": "Parlay odds are found by multiplying the decimal odds of every leg together. The payout grows quickly, but every leg must win for the parlay to pay out, so the combined implied probability — 1 divided by the combined odds — falls fast with each added leg." } }
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#f4f6f4; --surface:#ffffff; --surface-2:#eef2ee; --ink:#16211b; --ink-2:#4a5a50;
@@ -371,6 +402,21 @@
     </div>
     <p class="small" style="margin-top:14px">All figures are calculated in your browser from the numbers you enter. Examples use $ as the currency; the maths is identical in any currency.</p>
   </div>
+
+  <section class="calc" aria-labelledby="faq-h">
+    <h2 id="faq-h">Frequently asked questions</h2>
+    <h3>What is implied probability in betting?</h3>
+    <p>Implied probability is the chance the odds themselves assign to an outcome: 1 divided by the decimal odds. Decimal odds of 2.50 imply a 40% chance. Because bookmakers build a margin into their odds, the implied probabilities of all outcomes in a market add up to more than 100%.</p>
+    <h3>How does the Kelly criterion work?</h3>
+    <p>The Kelly criterion sizes a bet from your edge: stake fraction = (odds × your estimated probability − 1) ÷ (odds − 1). It only suggests a bet when your estimated probability is higher than the odds imply. Many bettors use a fraction of the full Kelly stake, such as half or quarter Kelly, to reduce swings.</p>
+    <h3>What is expected value (EV) in sports betting?</h3>
+    <p>Expected value is the average profit or loss per bet if the same bet were repeated many times: EV = (probability of winning × payout) − stake. A positive EV means the bet would profit on average at your estimated probability; a negative EV means it would lose on average.</p>
+    <h3>What is arbitrage betting?</h3>
+    <p>Arbitrage is betting on every outcome of an event at different bookmakers when their combined implied probabilities add up to less than 100%. That guarantees a profit whatever the result, but the margins are small, bookmakers limit such accounts, and the odds can move before all legs are placed.</p>
+    <h3>How do parlay odds work?</h3>
+    <p>Parlay odds are found by multiplying the decimal odds of every leg together. The payout grows quickly, but every leg must win for the parlay to pay out, so the combined implied probability — 1 divided by the combined odds — falls fast with each added leg.</p>
+    <p class="small">More free tools: <a href="saudi-end-of-service-calculator.html">Saudi End of Service Calculator</a>.</p>
+  </section>
 
 </main>
 
